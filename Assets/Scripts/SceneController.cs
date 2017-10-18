@@ -16,20 +16,14 @@ public class SceneController : MonoBehaviour {
         {
             _player = Instantiate(_playerPrefab) as GameObject;
             _player.transform.position = new Vector3(0, 1, -11);
-            //Каждый раз поворачиваем игрока в новом направлении
-            float angle = Random.Range(0, 360);
-            _player.transform.Rotate(0, angle, 0);
-            Camera.main.fieldOfView = Random.Range(10, 60);
         }
-
+        //Debug.Log(_player.transform.position);
         //Если лидара нет, то содаем, каждый раз поворачивая его в новом направлении
-        if (_lidar == null)
+        /*if (_lidar == null)
         {
             _lidar = Instantiate(_lidarPrefab) as GameObject;
             _lidar.transform.position = new Vector3(0, 1, 0);
-            float angle = Random.Range(0, 360);
-            _lidar.transform.Rotate(0, angle, 0);
-        }
+        }*/
     }
 } 
 
