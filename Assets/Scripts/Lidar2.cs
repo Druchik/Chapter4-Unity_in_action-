@@ -32,8 +32,7 @@ using UnityEngine.UI;
 			CloudWidth = Mathf.RoundToInt(SampleFrequency / RotateFrequency);
 			lastImage = new Texture2D(CloudWidth, Channels, TextureFormat.RGB24, false);
 			imageRendered = false;
-
-			rawImage.texture = lastImage;
+		    rawImage.texture = lastImage;
 		}
 
 		public bool TryRenderPointCloud(out byte[] image)
@@ -41,7 +40,7 @@ using UnityEngine.UI;
 			if (imageRendered != false)
 			{
 				image = lastImage.EncodeToJPG();
-				//UnityEngine.Object.DestroyImmediate(lastImage);
+				UnityEngine.Object.DestroyImmediate(lastImage);
 				imageRendered = false;
 				return true;
 			}
@@ -56,7 +55,7 @@ using UnityEngine.UI;
 			}
 
 			if (data.Count >= CloudWidth) {
-				//lastImage = new Texture2D(CloudWidth, Channels, TextureFormat.RGB24, false);
+				lastImage = new Texture2D(CloudWidth, Channels, TextureFormat.RGB24, false);
 				for (int i = 0; i < CloudWidth; i++) {
 					for (int j = 0; j < Channels; j++) {
 						float val = (data[i].Lasers[j].distance / MeasurementRange);
@@ -66,7 +65,6 @@ using UnityEngine.UI;
 						lastImage.SetPixel(i, j, new Color(0, val, 0));
 					}
 				}
-
 				lastImage.Apply();
 				imageRendered = true;
 			}
@@ -95,7 +93,7 @@ using UnityEngine.UI;
 				data.Add(temp);
 			}
 
-			TryComposeTexture();
+			//TryComposeTexture();
 		}
 
 		void RenderSlice(float horizontalAngle, out LaserSliceData outSlice)

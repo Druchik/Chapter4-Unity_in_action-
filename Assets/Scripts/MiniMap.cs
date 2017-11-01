@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MiniMap : MonoBehaviour
 {
-
 	public Transform Target;
-	
+
+
 	public Vector2 TransformPosition(Vector3 position)
 	{
 		Vector3 offset = position - Target.position;

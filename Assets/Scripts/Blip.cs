@@ -22,6 +22,7 @@ public class Blip : MonoBehaviour
 
 	void LateUpdate()
 	{
+		
 		Vector2 newPosition = map.TransformPosition(Target.position);
 		//Debug.Log(Target.position);
 		myRectTransform.localPosition = newPosition;
