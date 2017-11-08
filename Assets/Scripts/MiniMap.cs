@@ -6,6 +6,13 @@ using UnityEngine.UI;
 public class MiniMap : MonoBehaviour
 {
 	public Transform Target;
+	
+	public Quaternion TransformRotation(Quaternion rotation)
+	{
+		Quaternion offset = Target.rotation;
+		Quaternion newRotation = Quaternion.Euler(0,0,offset.z);
+		return newRotation;
+	}
 
 
 	public Vector2 TransformPosition(Vector3 position)

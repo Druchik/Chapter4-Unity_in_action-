@@ -5,13 +5,9 @@ using UnityEngine;
 
 public class Lidar : MonoBehaviour
 {
-    //public Texture2D lastImage = null;
-    public HashSet<Vector3> points = new HashSet<Vector3>();
-    //public List<Vector3> lidarpoints = new List<Vector3>();
-    //public int x = 5;
     void Update()
     {
-        transform.Rotate(0,1,0);
+        transform.Rotate(0,5,0);
         //Луч находится в том же положении и нацеливается в том же направлении, что и объект
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
@@ -19,17 +15,25 @@ public class Lidar : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             //Загружаем в сообщение координаты точки, в которую попал луч
-            points.Add(hit.point);
-            //lidarpoints = points;
+            Messenger<Vector3>.Broadcast(GameEvent.NEW_BLIP, hit.point);
             Debug.DrawLine(transform.position, hit.point, Color.green);
             //Debug.Log("Hit " + points);
+            //StartCoroutine(SphereIndicator(hit.point));
         }
-        //lastImage.SetPixel(0, 2, new Color(0, 2, 0));
     }
-
-    public int Check(int x)
+    
+    /*private IEnumerator SphereIndicator(Vector3 pos) 
     {
-        var z = x;
-        return z;
-    }
+        _blip = Instantiate(_blipPrefab) as GameObject;
+        _blip.transform.parent = _map.transform;
+        _myRectTransform = _blip.GetComponent<RectTransform>();
+        Vector3 offset = pos - Target.position;
+        Vector2 newPosition = new Vector2(offset.x,offset.z);
+        _myRectTransform.localPosition = newPosition;
+
+        yield return new WaitForSeconds(1);
+
+        Destroy(_blip);
+    }*/
+    
 }

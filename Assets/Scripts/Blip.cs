@@ -5,14 +5,14 @@ using UnityEngine;
 public class Blip : MonoBehaviour
 {
 	public Transform Target;
-	private MiniMap map;
-	private RectTransform myRectTransform;
+	private MiniMap _map;
+	private RectTransform _myRectTransform;
 	//private GameObject _player;
 	
 	private void Start()
 	{
-		map = GetComponentInParent<MiniMap>();
-		myRectTransform = GetComponent<RectTransform>();
+		_map = GetComponentInParent<MiniMap>();
+		_myRectTransform = GetComponent<RectTransform>();
 	}
 
 	void Update()
@@ -22,9 +22,8 @@ public class Blip : MonoBehaviour
 
 	void LateUpdate()
 	{
-		
-		Vector2 newPosition = map.TransformPosition(Target.position);
-		//Debug.Log(Target.position);
-		myRectTransform.localPosition = newPosition;
+		_myRectTransform.rotation = Quaternion.Euler(0,0,-Target.localEulerAngles.y);
+		Vector2 newPosition = _map.TransformPosition(Target.position);
+		_myRectTransform.localPosition = newPosition;
 	}
 }

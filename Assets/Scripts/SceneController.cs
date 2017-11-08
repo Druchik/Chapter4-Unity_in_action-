@@ -5,25 +5,32 @@ using UnityEngine;
 public class SceneController : MonoBehaviour {
 
     //Создаем сериализованные переменные лидара и игрока
-    [SerializeField] private GameObject _lidarPrefab;
+    /*[SerializeField] private GameObject _lidarPrefab;
     private GameObject _lidar;
     [SerializeField] private GameObject _playerPrefab;
-    private GameObject _player;
-    void Update()
+    private GameObject _player;*/
+    [SerializeField] private GameObject _blipPrefab;
+    private GameObject _blip;
+    private List<GameObject> _blips;
+    [SerializeField] private GameObject _map;
+    private RectTransform _myRectTransform;
+    public Transform Target;
+
+    void Awake()
     {
-        //Если игрока нет на сцене, то создаем его
-        if (_player == null)
-        {
-            _player = Instantiate(_playerPrefab) as GameObject;
-            _player.transform.position = new Vector3(0, 1, -11);
-        }
-        //Debug.Log(_player.transform.position);
-        //Если лидара нет, то содаем, каждый раз поворачивая его в новом направлении
-        /*if (_lidar == null)
-        {
-            _lidar = Instantiate(_lidarPrefab) as GameObject;
-            _lidar.transform.position = new Vector3(0, 1, 0);
-        }*/
+        Messenger<Vector3>.AddListener(GameEvent.NEW_BLIP, NewBlip);
+    }
+
+    public void NewBlip(Vector3 point)
+    {
+        _blip = Instantiate(_blipPrefab) as GameObject;
+        _blip.transform.parent = _map.transform;
+        _myRectTransform = _blip.GetComponent<RectTransform>();
+        Vector3 offset = point - Target.position;
+        Vector2 newPosition = new Vector2(offset.x,offset.z);
+        _myRectTransform.localPosition = newPosition;
+        if(Input.GetKeyDown(KeyCode.W))
+            Destroy(_blip);
     }
 } 
 
