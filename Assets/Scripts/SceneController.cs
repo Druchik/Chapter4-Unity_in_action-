@@ -29,8 +29,13 @@ public class SceneController : MonoBehaviour {
         Vector3 offset = point - Target.position;
         Vector2 newPosition = new Vector2(offset.x,offset.z);
         _myRectTransform.localPosition = newPosition;
-        if(Input.GetKeyDown(KeyCode.W))
-            Destroy(_blip);
+        StartCoroutine(SphereIndicator(_blip));
+    }
+    
+    private IEnumerator SphereIndicator(GameObject blip) 
+    {
+       yield return new WaitForSeconds(1);
+        Destroy(blip);
     }
 } 
 
